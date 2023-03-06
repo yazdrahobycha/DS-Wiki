@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+}
+
+body {
+    background-image: url(img/background.png);
+    background-color: #0F1C39;
+}
+
+img {
+    max-width: 100%;
+}
