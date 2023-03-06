@@ -52,13 +52,17 @@ In the game, the player character is a Tarnished, one of a group of exiles from 
 const elements = {
     $nav: {},
     $main: {},
-    $header: {}
+    $header: {},
+    $menuBtn: {},
+    $menuBtnMiddle: {}
 };
 
 function loadElements() {
     elements.$main = document.querySelector('main');
     elements.$nav = document.querySelector('nav');
     elements.$header = document.querySelector('header');
+    elements.$menuBtn = document.querySelector('.burger_wrapper');
+    elements.$menuBtnMiddle = document.querySelector('.burger_btn');
 }
 
 function toSnakeCase(str) {
@@ -70,6 +74,11 @@ function paragraphsSplit(str) {
         .split('\n')
         .map((paragraph) => `<p class="text-paragraph">${paragraph}</p>`)
         .join('\n');
+}
+
+function toggleMenu() {
+    elements.$menuBtn.classList.toggle('active')
+    elements.$menuBtnMiddle.classList.toggle('active');
 }
 
 function makeMenu($container, allArticles) {
@@ -114,4 +123,5 @@ function createAndShowInfoItem($container, articlesArr, index = 0) {
 loadElements();
 makeMenu(elements.$nav, articlesInfo);
 elements.$header.addEventListener('click', selectInfoItem);
+elements.$menuBtn.addEventListener('click', toggleMenu);
 createAndShowInfoItem(elements.$main, articlesInfo);

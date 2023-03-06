@@ -1,12 +1,68 @@
-*{
+* {
     margin: 0;
 }
 
 body {
     background-image: url(img/background.png);
-    background-color: #0F1C39;
+    background-color: #0f1c39;
 }
 
 img {
     max-width: 100%;
+}
+
+/* Burger icon styling and animation */
+
+.burger_wrapper {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.burger_wrapper:before,
+.burger_wrapper:after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    left: 0;
+    background: #fff;
+    border-radius: 10px;
+    height: 3px;
+    transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.burger_wrapper::before {
+    top: 0;
+}
+
+.burger_wrapper::after {
+    bottom: 0;
+}
+
+.burger_btn {
+    position: absolute;
+    top: 9px;
+    background: #fff;
+    border-radius: 10px;
+    height: 3px;
+    width: 100%;
+    transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.burger_wrapper.active::before {
+    transform: rotate(45deg);
+    top: 8.5px;
+}
+
+.burger_wrapper.active::after {
+     transform: rotate(-45deg);
+     bottom: 8.5px;
+}
+
+.burger_wrapper.active .burger_btn{
+    opacity: 0;
+    transform: translateX(12px);
 }
