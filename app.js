@@ -131,7 +131,7 @@ function createAndShowInfoItem($container, articlesArr, index = 0) {
     const snakeTitle = toSnakeCase(title);
     const insertContent = `<h2>${title}</h2>
     <div class="${snakeTitle} text_container">${paragraphsSplit(text)}</div>
-    <img class="${snakeTitle}" src="/img/${snakeTitle}.png">`;
+    <img class="${snakeTitle}" src="img/${snakeTitle}.png">`;
     $container.insertAdjacentHTML('afterbegin', insertContent);
     if (index === 0) {
         document.querySelector('h2').classList.add('no_header');
