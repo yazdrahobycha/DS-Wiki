@@ -54,7 +54,8 @@ const elements = {
     $main: {},
     $header: {},
     $menuBtn: {},
-    $menuBtnMiddle: {}
+    $menuBtnMiddle: {},
+    $body: {},
 };
 
 function loadElements() {
@@ -63,6 +64,7 @@ function loadElements() {
     elements.$header = document.querySelector('header');
     elements.$menuBtn = document.querySelector('.burger_wrapper');
     elements.$menuBtnMiddle = document.querySelector('.burger_btn');
+    elements.$body = document.querySelector('body');
 }
 
 function toSnakeCase(str) {
@@ -77,11 +79,17 @@ function paragraphsSplit(str) {
 }
 
 function toggleMenu() {
-    elements.$menuBtn.classList.toggle('active')
+    if (!elements.$nav.classList.contains('active')) {
+        elements.$nav.scrollTo(0, 0);
+    }
+    elements.$menuBtn.classList.toggle('active');
     elements.$menuBtnMiddle.classList.toggle('active');
+    elements.$nav.classList.toggle('active');
+    elements.$main.classList.toggle('active');
+    elements.$body.classList.toggle('active');
 }
 
-function makeMenu($container, allArticles) {
+function makeMenu(allArticles) {
     let heading;
     const menuButtons = allArticles
         .map((article, index) => {
@@ -95,33 +103,44 @@ function makeMenu($container, allArticles) {
             )}" data-number="${index}">${articleTitle}</li>`;
         })
         .join(' ');
-    $container.insertAdjacentHTML('beforebegin', heading);
-    $container.insertAdjacentHTML('afterbegin', `<ul>${menuButtons}</ul>`);
+    elements.$header.insertAdjacentHTML('beforeend', heading);
+    elements.$nav.insertAdjacentHTML('afterbegin', `<ul>${menuButtons}</ul>`);
 }
 
 function selectInfoItem(event) {
     if (event.target.tagName != 'LI' && event.target.tagName != 'H1') {
+        if (event.target.tagName === 'NAV' || event.target.tagName === 'UL') {
+            toggleMenu();
+        }
         return;
     }
     elements.$main.innerHTML = '';
+    elements.$body.scrollTo(0, 0);
     createAndShowInfoItem(
         elements.$main,
         articlesInfo,
         Number(event.target.dataset.number)
     );
+    if (event.target.tagName != 'H1') {
+        toggleMenu();
+    }
 }
 
 function createAndShowInfoItem($container, articlesArr, index = 0) {
     const { title, text } = articlesArr[index];
     const snakeTitle = toSnakeCase(title);
     const insertContent = `<h2>${title}</h2>
-    <div class="${snakeTitle} text_constainer">${paragraphsSplit(text)}</div>
+    <div class="${snakeTitle} text_container">${paragraphsSplit(text)}</div>
     <img class="${snakeTitle}" src="/img/${snakeTitle}.png">`;
     $container.insertAdjacentHTML('afterbegin', insertContent);
+    if (index === 0) {
+        document.querySelector('h2').classList.add('no_header');
+    }
 }
 
 loadElements();
-makeMenu(elements.$nav, articlesInfo);
+makeMenu(articlesInfo);
+elements.$nav.addEventListener('click', selectInfoItem);
 elements.$header.addEventListener('click', selectInfoItem);
 elements.$menuBtn.addEventListener('click', toggleMenu);
 createAndShowInfoItem(elements.$main, articlesInfo);
