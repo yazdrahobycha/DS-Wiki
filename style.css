@@ -91,7 +91,7 @@ body {
     background-position: bottom;
     background-size: cover;
     background-color: #0f1c39;
-    font-family: 'OptimusPrincepsSemiBold';
+    font-family: 'Optimus';
 }
 
 body.active {
@@ -167,6 +167,7 @@ body.active {
 /* Nav Styling */
 
 nav {
+    font-family: 'Optimus';
     position: fixed;
     top: 0;
     left: -100%;
@@ -256,6 +257,7 @@ main.active {
 }
 
 h2 {
+    font-family: 'Optimus';
     font-size: 2rem;
     text-align: center;
     margin-top: 2rem;
@@ -265,7 +267,6 @@ h2 {
 
 img {
     margin-top: auto;
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    max-width: 100%;
+    max-width: 95%;
     text-align: center;
 }

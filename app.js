@@ -82,47 +82,53 @@ function toggleMenu() {
     if (!elements.$nav.classList.contains('active')) {
         elements.$nav.scrollTo(0, 0);
     }
-    elements.$menuBtn.classList.toggle('active');
-    elements.$menuBtnMiddle.classList.toggle('active');
-    elements.$nav.classList.toggle('active');
-    elements.$main.classList.toggle('active');
-    elements.$body.classList.toggle('active');
+    const elementsToToggle = [
+        elements.$menuBtn,
+        elements.$menuBtnMiddle,
+        elements.$nav,
+        elements.$main,
+        elements.$body,
+    ];
+    elementsToToggle.forEach((el) => el.classList.toggle('active'));
 }
 
 function makeMenu(allArticles) {
-    let heading;
-    const menuButtons = allArticles
-        .map((article, index) => {
-            let articleTitle = article.title;
-            if (index === 0) {
-                heading = `<h1 data-number='${index}'>${articleTitle}</h1>\n`;
-                return;
-            }
-            return `<li class="menu_item ${toSnakeCase(
-                articleTitle
-            )}" data-number="${index}">${articleTitle}</li>`;
+    const [firstArticle, ...remainingArticles] = allArticles;
+    const heading = document.createElement('h1');
+    heading.textContent = firstArticle.title;
+    heading.dataset.number = 0;
+    elements.$header.appendChild(heading);
+    const menuButtons = remainingArticles
+        .map(({ title }, index) => {
+            return `<li class="menu_item ${toSnakeCase(title)}" data-number="${
+                index + 1
+            }">${title}</li>`;
         })
         .join(' ');
-    elements.$header.insertAdjacentHTML('beforeend', heading);
     elements.$nav.insertAdjacentHTML('afterbegin', `<ul>${menuButtons}</ul>`);
 }
 
 function selectInfoItem(event) {
-    if (event.target.tagName != 'LI' && event.target.tagName != 'H1') {
-        if (event.target.tagName === 'NAV' || event.target.tagName === 'UL') {
+    const { target } = event;
+    switch (target.tagName) {
+        case 'H1':
+        case 'LI':
+            elements.$main.innerHTML = '';
+            elements.$body.scrollTo(0, 0);
+            createAndShowInfoItem(
+                elements.$main,
+                articlesInfo,
+                Number(target.dataset.number)
+            );
+            if (elements.$nav.classList.contains('active')) {
+                toggleMenu();
+            }
+            break;
+
+        case 'NAV':
+        case 'UL':
             toggleMenu();
-        }
-        return;
-    }
-    elements.$main.innerHTML = '';
-    elements.$body.scrollTo(0, 0);
-    createAndShowInfoItem(
-        elements.$main,
-        articlesInfo,
-        Number(event.target.dataset.number)
-    );
-    if (event.target.tagName != 'H1') {
-        toggleMenu();
+            break;
     }
 }
 
