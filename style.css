@@ -86,13 +86,11 @@ h6 {
 }
 
 body {
-    background-image: url(img/background.png);
-    background-attachment: fixed;
-    background-position: bottom;
-    background-size: cover;
     background-color: #0f1c39;
     font-family: 'Optimus';
 }
+
+
 
 body.active {
     overflow: hidden;
@@ -100,6 +98,10 @@ body.active {
 
 .wrapper {
     overflow: hidden;
+    background-image: url(img/background.png);
+    background-attachment: fixed;
+    background-position: bottom;
+    background-size: cover;
 }
 
 /* Burger icon styling and animation */
@@ -179,8 +181,8 @@ nav {
     transition: all 0.5s ease-in;
     z-index: 1;
     overflow: auto;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
 }
 
 nav.active {
