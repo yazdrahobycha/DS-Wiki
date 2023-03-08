@@ -140,7 +140,7 @@ function createAndShowInfoItem($container, articlesArr, index = 0) {
     <img class="${snakeTitle}" src="img/${snakeTitle}.png">`;
     $container.insertAdjacentHTML('afterbegin', insertContent);
     if (index === 0) {
-        document.querySelector('h2').classList.add('no_header');
+        document.querySelector('h2').classList.add('display_none');
     }
 }
 
