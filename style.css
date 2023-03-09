@@ -111,11 +111,8 @@ body.active {
 }
 
 .wrapper {
-    /* overflow: hidden;
-    background-image: url(img/background.png);
-    background-attachment: fixed;
-    background-position: bottom; */
     background-size: cover;
+    overflow: hidden;
 }
 
 /* Burger icon styling and animation */
@@ -289,4 +286,97 @@ img {
     margin-top: auto;
     max-width: 95%;
     text-align: center;
+}
+
+img.bloodborne {
+    max-width: 60%;
+}
+
+/* Narrow-mobile media queries */
+
+@media only screen and (max-height: 450px) {
+    img {
+        max-width: 50%;
+    }
+
+    img.bloodborne {
+    max-width: 30%;
+}
+
+    .text_container {
+        max-width: 400px;
+    }
+}
+
+@media only screen and (min-width: 600px) and (orientation: landscape) {
+    .text_container {
+        max-width: 600px;
+    }
+
+nav {
+    padding: 80px 13rem 0 13rem;
+}
+}
+
+/* Tablet Media Quaries */
+
+@media only screen and (min-width: 750px) and (orientation: portrait) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    header {
+        height: 100px;
+    }
+
+    main {
+        margin-top: 100px;
+        min-height: calc(100vh - 100px);
+    }
+
+    .burger_wrapper {
+        width: 30px;
+        height: 20px;
+    }
+
+    .burger_btn, .burger_wrapper.active::before {
+        top: 9px;
+        border-radius: 20px;
+    }
+
+    .burger_wrapper.active::after {
+        bottom: 9px;
+        border-radius: 20px;
+    }
+
+    nav {
+        padding: 120px 10rem 0 10rem;
+    }
+
+    li {
+        font-size: 2.5rem;
+        padding: 1rem 0 0.6rem 0;
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-size: 3.75rem;
+    }
+
+    .text_container {
+        font-size: 1.6rem;
+        max-width: 600px;
+    }
+
+    .text_container p {
+        margin-bottom: 1.4rem;
+    }
+
+    img {
+        max-width: 75%;
+    }
+
+    img.bloodborne {
+        max-width: 50%;
+    }
 }
