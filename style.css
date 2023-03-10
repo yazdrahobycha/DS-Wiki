@@ -219,6 +219,7 @@ li {
 li.active_link,
 li:hover {
     background: rgba(175, 217, 255, 0);
+    border-radius: 5px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
