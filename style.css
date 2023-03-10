@@ -86,7 +86,7 @@ h6 {
 }
 
 body {
-    background-color: #0f1c39;
+    background-color: black;
     font-family: 'Optimus';
 }
 
@@ -111,7 +111,6 @@ body.active {
 }
 
 .wrapper {
-    background-size: cover;
     overflow: hidden;
 }
 
@@ -213,8 +212,22 @@ li {
     margin-bottom: 1.5rem;
     padding: 0.5rem 0 0.3rem 0;
     border-radius: 5px;
-    z-index: -1;
     cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+
+li.active_link,
+li:hover {
+    background: rgba(175, 217, 255, 0);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    outline: 1px solid rgba(175, 217, 255, 1);
+}
+
+h1.active_link,
+h1:hover {
+    text-shadow: rgba(184, 195, 210, 0.7) 0px 0px 15px;
 }
 
 /* Header Styling */
@@ -238,6 +251,7 @@ h1 {
     font-size: 1.5rem;
     color: #b8c3d2;
     cursor: pointer;
+    transition: text-shadow 0.5s ease-out;
 }
 
 /* Main Part Styling */
@@ -300,8 +314,8 @@ img.bloodborne {
     }
 
     img.bloodborne {
-    max-width: 30%;
-}
+        max-width: 30%;
+    }
 
     .text_container {
         max-width: 400px;
@@ -313,14 +327,14 @@ img.bloodborne {
         max-width: 600px;
     }
 
-nav {
-    padding: 80px 13rem 0 13rem;
-}
+    nav {
+        padding: 80px 13rem 0 13rem;
+    }
 }
 
 /* Tablet Media Quaries */
 
-@media only screen and (min-width: 750px) and (orientation: portrait) {
+@media only screen and (min-width: 750px) {
     h1 {
         font-size: 3rem;
     }
@@ -339,7 +353,8 @@ nav {
         height: 20px;
     }
 
-    .burger_btn, .burger_wrapper.active::before {
+    .burger_btn,
+    .burger_wrapper.active::before {
         top: 9px;
         border-radius: 20px;
     }
@@ -378,5 +393,80 @@ nav {
 
     img.bloodborne {
         max-width: 50%;
+    }
+}
+
+/* Laptop and wide screens media Queries */
+
+@media only screen and (min-width: 1024px) and (orientation: landscape) {
+    .wrapper {
+        min-height: 100%;
+        position: relative;
+    }
+    .burger_wrapper {
+        display: none;
+    }
+    nav {
+        position: static;
+        height: auto;
+    }
+
+    header {
+        margin-top: 6rem;
+        position: static;
+        background-color: transparent;
+        height: auto;
+    }
+    h1 {
+        font-size: calc(80px + (120 + 120 * 0.7) * ((100vw - 1024px) / 2880));
+    }
+
+    nav {
+        height: auto;
+        padding: 2rem 3rem 0 3rem;
+        /* max-width: 2600px; */
+        margin: 0 auto;
+    }
+
+    ul {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    li {
+        font-size: calc(15px + (30 + 30 * 0.7) * ((100vw - 1024px) / 2280));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 2rem;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+    }
+
+    img {
+        max-width: 70vh;
+        z-index: -1;
+        bottom: 0;
+        left: 0;
+    }
+
+    img.bloodborne {
+        max-width: 50vh;
+    }
+
+    main {
+        min-height: auto;
+        margin-top: 2rem;
+    }
+
+    h2 {
+        font-size: calc(60px + (67 + 67 * 0.7) * ((100vw - 1024px) / 2280));
+    }
+
+    .text_container {
+        font-size: calc(20px + (25 + 25 * 0.7) * ((100vw - 1024px) / 2280));
+        max-width: 1800px;
+        margin: 0.7rem 10rem 0 10rem;
     }
 }

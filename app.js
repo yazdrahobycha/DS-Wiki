@@ -79,17 +79,30 @@ function paragraphsSplit(str) {
 }
 
 function toggleMenu() {
-    if (!elements.$nav.classList.contains('active')) {
-        elements.$nav.scrollTo(0, 0);
+    if (window.innerWidth < 1024) {
+        if (!elements.$nav.classList.contains('active')) {
+            elements.$nav.scrollTo(0, 0);
+        }
+        const elementsToToggle = [
+            elements.$menuBtn,
+            elements.$menuBtnMiddle,
+            elements.$nav,
+            elements.$main,
+            elements.$body,
+        ];
+        elementsToToggle.forEach((el) => el.classList.toggle('active'));
+    } else {
+        return;
     }
-    const elementsToToggle = [
-        elements.$menuBtn,
-        elements.$menuBtnMiddle,
-        elements.$nav,
-        elements.$main,
-        elements.$body,
-    ];
-    elementsToToggle.forEach((el) => el.classList.toggle('active'));
+}
+
+function changeActiveLink(linkIndex) {
+    const previousLink =
+        document.querySelector('.active_link') || elements.$header;
+    previousLink.classList.remove('active_link');
+    document
+        .querySelector(`[data-number="${linkIndex}"]`)
+        .classList.toggle('active_link');
 }
 
 function makeMenu(allArticles) {
@@ -133,6 +146,7 @@ function selectInfoItem(event) {
 }
 
 function createAndShowInfoItem($container, articlesArr, index = 0) {
+    changeActiveLink(index);
     const { title, text } = articlesArr[index];
     const snakeTitle = toSnakeCase(title);
     const insertContent = `<h2>${title}</h2>
