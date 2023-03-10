@@ -49,6 +49,7 @@ In the game, the player character is a Tarnished, one of a group of exiles from 
     },
 ];
 
+// Get elements to manipulate with them
 const elements = {
     $nav: {},
     $main: {},
@@ -67,6 +68,8 @@ function loadElements() {
     elements.$body = document.querySelector('body');
 }
 
+
+// Utility functions
 function toSnakeCase(str) {
     return str.toLowerCase().split(' ').join('_');
 }
@@ -78,6 +81,8 @@ function paragraphsSplit(str) {
         .join('\n');
 }
 
+
+// Toogle active classes for burger menu
 function toggleMenu() {
     if (window.innerWidth < 1024) {
         if (!elements.$nav.classList.contains('active')) {
@@ -94,6 +99,7 @@ function toggleMenu() {
     }
 }
 
+// Adding and removing active classes for active links
 function changeActiveLink(linkIndex) {
     const previousLink =
         document.querySelector('.active_link') || elements.$header;
@@ -103,6 +109,8 @@ function changeActiveLink(linkIndex) {
         .classList.toggle('active_link');
 }
 
+
+// Create list with buttons
 function makeMenu(allArticles) {
     const [firstArticle, ...remainingArticles] = allArticles;
     const heading = document.createElement('h1');
@@ -119,6 +127,8 @@ function makeMenu(allArticles) {
     elements.$nav.insertAdjacentHTML('afterbegin', `<ul>${menuButtons}</ul>`);
 }
 
+
+// Select item from buttons list and transfer number of clicked item to createAndShowInfoItem()
 function selectInfoItem(event) {
     const { target } = event;
     switch (target.tagName) {
@@ -143,6 +153,8 @@ function selectInfoItem(event) {
     }
 }
 
+
+// Create title, text and img HTML
 function createAndShowInfoItem($container, articlesArr, index = 0) {
     changeActiveLink(index);
     const { title, text } = articlesArr[index];
@@ -156,6 +168,7 @@ function createAndShowInfoItem($container, articlesArr, index = 0) {
     }
 }
 
+// Put everything together
 loadElements();
 makeMenu(articlesInfo);
 elements.$nav.addEventListener('click', selectInfoItem);
