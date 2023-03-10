@@ -91,8 +91,6 @@ function toggleMenu() {
             elements.$body,
         ];
         elementsToToggle.forEach((el) => el.classList.toggle('active'));
-    } else {
-        return;
     }
 }
 
@@ -150,7 +148,7 @@ function createAndShowInfoItem($container, articlesArr, index = 0) {
     const { title, text } = articlesArr[index];
     const snakeTitle = toSnakeCase(title);
     const insertContent = `<h2>${title}</h2>
-    <div class="${snakeTitle} text_container">${paragraphsSplit(text)}</div>
+    <div class="text_container">${paragraphsSplit(text)}</div>
     <img class="${snakeTitle}" src="img/${snakeTitle}.png">`;
     $container.insertAdjacentHTML('afterbegin', insertContent);
     if (index === 0) {

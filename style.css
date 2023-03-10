@@ -108,10 +108,6 @@ body.active, .wrapper {
     overflow: hidden;
 }
 
-/* .wrapper {
-    overflow: hidden;
-} */
-
 /* Burger icon styling and animation */
 
 .burger_wrapper {
@@ -209,7 +205,6 @@ li {
     backdrop-filter: blur(4.1px);
     -webkit-backdrop-filter: blur(4.1px);
     text-align: center;
-    width: 100%;
     margin-bottom: 1.5rem;
     padding: 0.5rem 0 0.3rem 0;
     border-radius: 5px;
