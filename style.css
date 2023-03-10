@@ -90,7 +90,7 @@ body {
     font-family: 'Optimus';
 }
 
-body::before {
+/* body::before {
     content: '';
     display: block;
     position: fixed;
@@ -104,6 +104,16 @@ body::before {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+} */
+
+.bg {
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-image: url(img/background.png);
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: -10;
 }
 
 body.active {
@@ -443,6 +453,11 @@ img.bloodborne {
         cursor: pointer;
         border-radius: 2rem;
         padding: 0.5rem 1rem 0.5rem 1rem;
+    }
+
+    li.active_link,
+    li:hover {
+        border-radius: 2rem;
     }
 
     img {
