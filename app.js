@@ -59,9 +59,9 @@ const elements = {
 };
 
 function loadElements() {
-    elements.$main = document.querySelector('main');
-    elements.$nav = document.querySelector('nav');
-    elements.$header = document.querySelector('header');
+    elements.$main = document.querySelector('.content');
+    elements.$nav = document.querySelector('.navigation');
+    elements.$header = document.querySelector('.heading');
     elements.$menuBtn = document.querySelector('.burger_wrapper');
     elements.$body = document.querySelector('body');
 }
@@ -96,12 +96,11 @@ function changeActiveLink(linkIndex) {
 }
 
 // Create list with buttons
-
 function makeMenu(allArticles) {
     const [header, ...navLinks] = allArticles.map(({ title }, index) => {
         return index === 0
-            ? `<h1 data-number="0" class="menu_title">${title}</h1>`
-            : `<li class="menu_item" data-number="${index}">${title}</li>`;
+            ? `<h1 data-number="0" tabindex="0" class="menu_title">${title}</h1>`
+            : `<li class="menu_item" data-number="${index}" tabindex="0">${title}</li>`;
     });
     elements.$header.insertAdjacentHTML('beforeend', header);
     elements.$nav.insertAdjacentHTML(
@@ -111,6 +110,14 @@ function makeMenu(allArticles) {
 }
 
 function selectInfoItem(event) {
+    if (
+        event.type === 'keydown' &&
+        event.code !== 'Space' &&
+        event.code !== 'Enter'
+    ) {
+        return;
+    }
+    event.preventDefault();
     const { target } = event;
     if (target.closest('.menu_item, .menu_title')) {
         elements.$main.innerHTML = '';
@@ -139,14 +146,20 @@ function createAndShowInfoItem($container, articlesArr, index = 0) {
     <img class="${snakeTitle} content_img" src="img/${snakeTitle}.png">`;
     $container.insertAdjacentHTML('afterbegin', insertContent);
     if (index !== 0) {
-        $container.insertAdjacentHTML('afterbegin', `<h2 class="content_title">${title}</h2>`);
+        $container.insertAdjacentHTML(
+            'afterbegin',
+            `<h2 class="content_title">${title}</h2>`
+        );
     }
 }
 
 // Put everything together
 loadElements();
 makeMenu(articlesInfo);
-elements.$nav.addEventListener('click', selectInfoItem);
-elements.$header.addEventListener('click', selectInfoItem);
+['click', 'keydown'].forEach((ev) =>
+    [elements.$nav, elements.$header].forEach((container) =>
+        container.addEventListener(ev, selectInfoItem)
+    )
+);
 elements.$menuBtn.addEventListener('click', toggleMenu);
 createAndShowInfoItem(elements.$main, articlesInfo);
