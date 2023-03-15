@@ -49,7 +49,7 @@ In the game, the player character is a Tarnished, one of a group of exiles from 
     },
 ];
 
-// Get elements to manipulate with them
+// Get elements to manipulate with
 const elements = {
     $nav: {},
     $main: {},
@@ -68,7 +68,6 @@ function loadElements() {
     elements.$body = document.querySelector('body');
 }
 
-
 // Utility functions
 function toSnakeCase(str) {
     return str.toLowerCase().split(' ').join('_');
@@ -81,22 +80,19 @@ function paragraphsSplit(str) {
         .join('\n');
 }
 
-
 // Toogle active classes for burger menu
 function toggleMenu() {
-    if (window.innerWidth < 1024) {
-        if (!elements.$nav.classList.contains('active')) {
-            elements.$nav.scrollTo(0, 0);
-        }
-        const elementsToToggle = [
-            elements.$menuBtn,
-            elements.$menuBtnMiddle,
-            elements.$nav,
-            elements.$main,
-            elements.$body,
-        ];
-        elementsToToggle.forEach((el) => el.classList.toggle('active'));
+    if (!elements.$nav.classList.contains('active')) {
+        elements.$nav.scrollTo(0, 0);
     }
+    const elementsToToggle = [
+        elements.$menuBtn,
+        elements.$menuBtnMiddle,
+        elements.$nav,
+        elements.$main,
+        elements.$body,
+    ];
+    elementsToToggle.forEach((el) => el.classList.toggle('active'));
 }
 
 // Adding and removing active classes for active links
@@ -106,20 +102,20 @@ function changeActiveLink(linkIndex) {
     previousLink.classList.remove('active_link');
     document
         .querySelector(`[data-number="${linkIndex}"]`)
-        .classList.toggle('active_link');
+        .classList.add('active_link');
 }
-
 
 // Create list with buttons
 function makeMenu(allArticles) {
     const [firstArticle, ...remainingArticles] = allArticles;
     const heading = document.createElement('h1');
+    heading.classList.add('menu_item');
     heading.textContent = firstArticle.title;
     heading.dataset.number = 0;
     elements.$header.appendChild(heading);
     const menuButtons = remainingArticles
         .map(({ title }, index) => {
-            return `<li class="menu_item ${toSnakeCase(title)}" data-number="${
+            return `<li class="menu_item" data-number="${
                 index + 1
             }">${title}</li>`;
         })
@@ -127,32 +123,23 @@ function makeMenu(allArticles) {
     elements.$nav.insertAdjacentHTML('afterbegin', `<ul>${menuButtons}</ul>`);
 }
 
-
-// Select item from buttons list and transfer number of clicked item to createAndShowInfoItem()
 function selectInfoItem(event) {
     const { target } = event;
-    switch (target.tagName) {
-        case 'H1':
-        case 'LI':
-            elements.$main.innerHTML = '';
-            elements.$body.scrollTo(0, 0);
-            createAndShowInfoItem(
-                elements.$main,
-                articlesInfo,
-                Number(target.dataset.number)
-            );
-            if (elements.$nav.classList.contains('active')) {
-                toggleMenu();
-            }
-            break;
-
-        case 'NAV':
-        case 'UL':
+    if (target.closest('.menu_item')) {
+        elements.$main.innerHTML = '';
+        elements.$body.scrollTo(0, 0);
+        createAndShowInfoItem(
+            elements.$main,
+            articlesInfo,
+            Number(target.dataset.number)
+        );
+        if (elements.$nav.classList.contains('active')) {
             toggleMenu();
-            break;
+        }
+    } else if (target.closest('.navigation.active')) {
+        toggleMenu();
     }
 }
-
 
 // Create title, text and img HTML
 function createAndShowInfoItem($container, articlesArr, index = 0) {

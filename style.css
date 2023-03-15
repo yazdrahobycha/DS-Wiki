@@ -27,7 +27,7 @@ aside {
     display: block;
 }
 
-html,
+/* html,
 body {
     height: 100%;
     width: 100%;
@@ -37,7 +37,7 @@ body {
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
-}
+} */
 input,
 button,
 textarea {
