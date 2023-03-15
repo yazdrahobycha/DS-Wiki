@@ -67,9 +67,7 @@ function loadElements() {
 }
 
 // Utility functions
-function toSnakeCase(str) {
-    return str.toLowerCase().split(' ').join('_');
-}
+const toSnakeCase = (str) => str.toLowerCase().split(' ').join('_');
 
 function paragraphsSplit(str) {
     return str
@@ -83,8 +81,8 @@ function toggleMenu() {
     if (!elements.$nav.classList.contains('active')) {
         elements.$nav.scrollTo(0, 0);
     }
+    elements.$nav.classList.toggle('active');
     elements.$body.classList.toggle('active');
-    elements.$menuBtn.classList.toggle('active');
 }
 
 // Adding and removing active classes for active links
@@ -102,19 +100,19 @@ function changeActiveLink(linkIndex) {
 function makeMenu(allArticles) {
     const [header, ...navLinks] = allArticles.map(({ title }, index) => {
         return index === 0
-            ? `<h1 data-number="0" class="menu_item">${title}</h1>`
+            ? `<h1 data-number="0" class="menu_title">${title}</h1>`
             : `<li class="menu_item" data-number="${index}">${title}</li>`;
     });
     elements.$header.insertAdjacentHTML('beforeend', header);
     elements.$nav.insertAdjacentHTML(
         'afterbegin',
-        `<ul>${navLinks.join(' ')}</ul>`
+        `<ul class="menu">${navLinks.join(' ')}</ul>`
     );
 }
 
 function selectInfoItem(event) {
     const { target } = event;
-    if (target.closest('.menu_item')) {
+    if (target.closest('.menu_item, .menu_title')) {
         elements.$main.innerHTML = '';
         elements.$body.scrollTo(0, 0);
         createAndShowInfoItem(
@@ -138,10 +136,10 @@ function createAndShowInfoItem($container, articlesArr, index = 0) {
     const insertContent = `<div class="text_container">${paragraphsSplit(
         text
     )}</div>
-    <img class="${snakeTitle}" src="img/${snakeTitle}.png">`;
+    <img class="${snakeTitle} content_img" src="img/${snakeTitle}.png">`;
     $container.insertAdjacentHTML('afterbegin', insertContent);
     if (index !== 0) {
-        $container.insertAdjacentHTML('afterbegin', `<h2>${title}</h2>`);
+        $container.insertAdjacentHTML('afterbegin', `<h2 class="content_title">${title}</h2>`);
     }
 }
 
