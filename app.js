@@ -55,7 +55,6 @@ const elements = {
     $main: {},
     $header: {},
     $menuBtn: {},
-    $menuBtnMiddle: {},
     $body: {},
 };
 
@@ -64,7 +63,6 @@ function loadElements() {
     elements.$nav = document.querySelector('nav');
     elements.$header = document.querySelector('header');
     elements.$menuBtn = document.querySelector('.burger_wrapper');
-    elements.$menuBtnMiddle = document.querySelector('.burger_btn');
     elements.$body = document.querySelector('body');
 }
 
@@ -85,14 +83,8 @@ function toggleMenu() {
     if (!elements.$nav.classList.contains('active')) {
         elements.$nav.scrollTo(0, 0);
     }
-    const elementsToToggle = [
-        elements.$menuBtn,
-        elements.$menuBtnMiddle,
-        elements.$nav,
-        elements.$main,
-        elements.$body,
-    ];
-    elementsToToggle.forEach((el) => el.classList.toggle('active'));
+    elements.$body.classList.toggle('active');
+    elements.$menuBtn.classList.toggle('active');
 }
 
 // Adding and removing active classes for active links
@@ -106,21 +98,18 @@ function changeActiveLink(linkIndex) {
 }
 
 // Create list with buttons
+
 function makeMenu(allArticles) {
-    const [firstArticle, ...remainingArticles] = allArticles;
-    const heading = document.createElement('h1');
-    heading.classList.add('menu_item');
-    heading.textContent = firstArticle.title;
-    heading.dataset.number = 0;
-    elements.$header.appendChild(heading);
-    const menuButtons = remainingArticles
-        .map(({ title }, index) => {
-            return `<li class="menu_item" data-number="${
-                index + 1
-            }">${title}</li>`;
-        })
-        .join(' ');
-    elements.$nav.insertAdjacentHTML('afterbegin', `<ul>${menuButtons}</ul>`);
+    const [header, ...navLinks] = allArticles.map(({ title }, index) => {
+        return index === 0
+            ? `<h1 data-number="0" class="menu_item">${title}</h1>`
+            : `<li class="menu_item" data-number="${index}">${title}</li>`;
+    });
+    elements.$header.insertAdjacentHTML('beforeend', header);
+    elements.$nav.insertAdjacentHTML(
+        'afterbegin',
+        `<ul>${navLinks.join(' ')}</ul>`
+    );
 }
 
 function selectInfoItem(event) {
@@ -133,7 +122,7 @@ function selectInfoItem(event) {
             articlesInfo,
             Number(target.dataset.number)
         );
-        if (elements.$nav.classList.contains('active')) {
+        if (target.closest('.active')) {
             toggleMenu();
         }
     } else if (target.closest('.navigation.active')) {
@@ -146,12 +135,13 @@ function createAndShowInfoItem($container, articlesArr, index = 0) {
     changeActiveLink(index);
     const { title, text } = articlesArr[index];
     const snakeTitle = toSnakeCase(title);
-    const insertContent = `<h2>${title}</h2>
-    <div class="text_container">${paragraphsSplit(text)}</div>
+    const insertContent = `<div class="text_container">${paragraphsSplit(
+        text
+    )}</div>
     <img class="${snakeTitle}" src="img/${snakeTitle}.png">`;
     $container.insertAdjacentHTML('afterbegin', insertContent);
-    if (index === 0) {
-        document.querySelector('h2').classList.add('display_none');
+    if (index !== 0) {
+        $container.insertAdjacentHTML('afterbegin', `<h2>${title}</h2>`);
     }
 }
 

@@ -27,17 +27,6 @@ aside {
     display: block;
 }
 
-/* html,
-body {
-    height: 100%;
-    width: 100%;
-    font-size: 100%;
-    line-height: 1;
-    font-size: 16px;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-} */
 input,
 button,
 textarea {
@@ -107,6 +96,7 @@ body {
 body.active, .wrapper {
     overflow: hidden;
 }
+
 
 /* Burger icon styling and animation */
 
@@ -189,7 +179,7 @@ nav {
     scrollbar-width: none;
 }
 
-nav.active {
+body.active nav {
     left: 0;
 }
 
@@ -267,7 +257,7 @@ main {
     min-height: calc(100vh - 60px);
 }
 
-main.active {
+body.active main {
     opacity: 0;
 }
 
